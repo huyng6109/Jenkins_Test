@@ -1,8 +1,21 @@
-<h1>Hello World</h1>
-<p>My name is Huy</p>
-<div>
-    <h1>Like</h1>
-    <h1>Love</h1>
-    <h1>Wow</h1>
-    <h1>Haha</h1>
-</div>
+<!DOCTYPE html>
+<html>
+<body>
+
+
+<button onclick="myFunction()">Click me</button>
+
+<p id="demo"></p>
+
+<script>
+function myFunction() {
+    let a = 1;
+    for (var i = 0; i < 10; i++){
+        a = a + i;
+    }
+    document.getElementById("demo").innerHTML = a;
+}
+</script>
+
+</body>
+</html>
