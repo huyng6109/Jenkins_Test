@@ -1,11 +1,11 @@
 {
   "packageDirectories": [
-    {
-      "path": "force-app",
-      "default": true
-    }
+    { "path": "force-app", "default": true}, 
+    { "path" : "unpackaged" }, 
+    { "path" : "utils" } 
+    
   ],
-  "name": "TestSalesForce",
+  "name": "",
   "namespace": "",
   "sfdcLoginUrl": "https://login.salesforce.com",
   "sourceApiVersion": "54.0"
