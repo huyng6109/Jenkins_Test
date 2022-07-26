@@ -1,6 +1,0 @@
-const a = 1;
-{
-    a = 2; 
-    a = a + 1;
-}
-console.log(a);

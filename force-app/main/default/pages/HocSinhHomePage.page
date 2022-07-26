@@ -1,0 +1,117 @@
+<apex:page controller="StudentsController" action="{!showStudents}">
+    <style>
+        table, tr{
+            border-collapse: collapse;
+            border: 1px solid #b7b7b7;
+        }
+        table {
+            width: 135%;
+        }
+        input[type=button], input[type=submit], input[type=reset] {
+            background-color: #125f83;
+            color: rgb(0, 0, 0);
+            padding: 16px 32px;
+            text-decoration: none;
+            margin: 4px 2px;
+            cursor: pointer;
+        }
+        .formStudent{
+            padding: 100px;
+            align-items: center;
+            display: table;
+            margin: auto;
+        }
+        th {
+            background: #ccd;
+            padding: 10px;               
+        }
+        td {
+            border: 1px solid #b7b7b7;
+            padding: 5px;    
+        }
+        html {
+            height: 100%;
+            font-size: 30px;
+        }
+        .searchStu {
+            padding: 20px;
+            margin: auto;
+        }
+
+
+    </style>
+	<div class="formStudent">
+        <apex:form >
+            <div class="searchStu">
+                <apex:inputText value="{!searchCondition}" id="searchInput" style="width: 40%; height: 30px;"/>
+                <apex:commandButton action="{!searchStudents} || {!showStudents}" value="Tim Kiem" reRender="resultTableId"/>
+                <apex:commandButton onclick="editRecord(''); return false;" value="New Record"/>
+            </div>		           
+            <apex:outputPanel id="resultTableId">
+                <apex:variable var="rowNum" value="{!0}" />
+                <table>
+                    <tr>
+                        <th>STT</th>
+                        <th>Student</th>
+                        <th>Class</th>
+                        <th>Action</th>
+                    </tr>
+                    
+                    <apex:repeat value="{!students}" var="stu">
+                        <apex:variable var="rowNum" value="{!rowNum + 1}"/>
+
+                        <tr>
+                            <td>{!rowNum}</td>
+                            <td>{!stu.Name}</td>
+                            <td>{!stu.Lop__r.Name}</td>
+                            <td>
+                                <apex:commandButton onclick="editRecord('{!stu.Id}'); return false;" value="Edit" id="editBtnId" style="margin: 10px;"/>
+                                <apex:commandButton onclick="removeRecord('{!rowNum-1}'); return false;" value="Delete" id="removeBtnId" style="margin: 10px;"/>
+                            </td>
+                        </tr>
+
+                    </apex:repeat>
+
+                </table>
+            </apex:outputPanel>
+
+            <apex:actionFunction action="{!deleteRecord}" name="doRemove" reRender="resultTableId">
+                <apex:param name="recordIndex" value="" />
+            </apex:actionFunction>
+
+            <apex:actionFunction action="{!searchStudents}" name="reloadRecords" reRender="resultTableId">
+            </apex:actionFunction>
+	    </apex:form>
+    </div>
+	
+
+	<script type="text/javascript">
+	
+		function removeRecord(recordIndex)
+		{
+			console.log('recordIndex:' + recordIndex);
+			var result = confirm("Remove the record!"); 
+            if (result == true) { 
+                console.log('Remove');
+                doRemove(recordIndex);
+            } else { 
+                console.log('Cancel');
+            } 
+		}
+
+		function editRecord(recordId)
+		{
+			console.log('recordId:' + recordId);
+			centeredPopup('/apex/EditPage?id='+recordId,'Record',500,300,'yes');
+		}
+
+		function centeredPopup(url,winName,w,h,scroll){
+			var LeftPosition = (screen.width) ? (screen.width-w)/2 : 0;
+			var TopPosition = (screen.height) ? (screen.height-h)/2 : 0;
+			settings ='height='+h+',width='+w+',top='+TopPosition+',left='+LeftPosition+',scrollbars='+scroll+',resizable'
+			var popupWindow = window.open(url,winName,settings)
+		}
+
+	</script>
+
+</apex:page>
