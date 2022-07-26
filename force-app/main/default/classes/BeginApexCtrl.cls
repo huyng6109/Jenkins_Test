@@ -5,7 +5,7 @@ public class BeginApexCtrl {
     }
     
     public static void testMT(){
-
+        System.debug('Hello World');
     }
 
 }
